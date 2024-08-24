@@ -8,3 +8,10 @@ jobs:
         run: echo "Hello World!"
       - name: Print goodbye
         run: echo "Done - bye!"
+      - name: Slack Notification on Failure
+        uses: 8398a7/action-slack@v3        
+        env:
+          WEBHOOK_url: https://hooks.slack.com/services/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
+          username: GitHub Actions
+          text: 'Build Succeeded :rocket:'
+

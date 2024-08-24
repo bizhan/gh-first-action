@@ -2,16 +2,18 @@ name: First Workflow
 on: workflow_dispatch
 jobs: 
   first-job:
-    runs-on:  ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Print greeting
         run: echo "Hello World!"
       - name: Print goodbye
         run: echo "Done - bye!"
-      - name: Slack Notification on Failure
-        uses: 8398a7/action-slack@v3        
+      - name: Slack Notification
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          fields: repo,message,commit,author,action,eventName,ref,workflow
         env:
-          WEBHOOK_url: https://hooks.slack.com/services/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
-          username: GitHub Actions
-          text: 'Build Succeeded :rocket:'
+          SLACK_WEBHOOK_URL: https://hooks.slack.com/services/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
 
+        if: always()
